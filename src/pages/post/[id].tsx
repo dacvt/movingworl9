@@ -15,7 +15,6 @@ const Post = () => {
     fetch(`https://9newstoday.net/wp-json/wp/v2/posts?slug=${router.query.id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log('data', data[0]);
         setData(data[0]);
       });
   }, [router])

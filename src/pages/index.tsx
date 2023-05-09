@@ -1,5 +1,4 @@
-import PostPage from "./posts";
-
+import PostPage from "./post";
 
 const Index = () => {
   return (

@@ -49,7 +49,7 @@ const PostPage = () => {
             {
               (data || []).map((item: any, index: number) => (
                 <div className="col-new" key={index}>
-                  <Link href="/posts/post/[id]" as={`/posts/post/${item.slug}`}>
+                  <Link href="/post/[id]" as={`/post/${item.slug}`}>
                     <img src={getImage(item)} alt={item.title.rendered} />
                     <h3>{convert(item.title.rendered)}</h3>
                     <p dangerouslySetInnerHTML={{__html: item.excerpt.rendered}}></p>
