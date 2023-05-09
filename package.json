@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "build-stats": "cross-env ANALYZE=true npm run build",
-    "export": "next export",
+    "export": "npm run build && next export -o _static",
     "build-prod": "run-s clean build export",
     "clean": "rimraf .next .swc out coverage",
     "lint": "next lint",
