@@ -1,24 +1,8 @@
 import _ from 'lodash';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 
-const Post = () => {
-  const [data, setData] = useState({});
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!router.query.id) {
-      return;
-    }
-    fetch(`https://9newstoday.net/wp-json/wp/v2/posts?slug=${router.query.id}`)
-      .then((res) => res.json())
-      .then((resData) => {
-        setData(resData[0]);
-      });
-  }, [router]);
-
+// @ts-ignore
+export default function Post({ data }) {
   return (
     <div>
       <header>
@@ -51,6 +35,17 @@ const Post = () => {
       </article>
     </div>
   );
-};
+}
 
-export default Post;
+// This gets called on every request
+// @ts-ignore
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  // Fetch data from external API
+  const res = await fetch(
+    `https://9newstoday.net/wp-json/wp/v2/posts?slug=${id}`
+  );
+  const resData = await res.json();
+  // Pass data to the page via props
+  return { props: { data: resData[0] } };
+}
