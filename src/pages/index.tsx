@@ -1,9 +1,7 @@
-import PostPage from "./post";
+import PostPage from './post';
 
 const Index = () => {
-  return (
-    <PostPage />
-  );
+  return <PostPage />;
 };
 
 export default Index;
