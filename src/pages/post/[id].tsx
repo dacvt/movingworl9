@@ -39,7 +39,7 @@ export default function Post({ data }) {
 
 // This gets called on every request
 // @ts-ignore
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const { id } = context.params;
   // Fetch data from external API
   const res = await fetch(
@@ -48,4 +48,12 @@ export async function getServerSideProps(context) {
   const resData = await res.json();
   // Pass data to the page via props
   return { props: { data: resData[0] } };
+}
+
+// @ts-ignore
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
 }
