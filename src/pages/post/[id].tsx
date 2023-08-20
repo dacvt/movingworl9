@@ -43,7 +43,7 @@ export async function getServerSideProps(context) {
   const { id } = context.params;
   // Fetch data from external API
   const res = await fetch(
-    `https://9newstoday.net/wp-json/wp/v2/posts?slug=${id}`
+    `https://amazingdailynews.com/wp-json/wp/v2/posts?slug=${id}`
   );
   const resData = await res.json();
   // Pass data to the page via props
