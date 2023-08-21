@@ -42,7 +42,7 @@ export default function PostPage({ data }) {
             {(data || []).map((item: any, index: number) => (
               // eslint-disable-next-line react/no-array-index-key
               <div className="col-new" key={index}>
-                <Link href={{ pathname: '/post', query: { name: item.slug } }}>
+                <Link href="/blog/[id]" as={`/blog/${item.slug}`}>
                   <img src={getImage(item)} alt={item.title.rendered} />
                   <h3>{convert(item.title.rendered)}</h3>
                   <div
