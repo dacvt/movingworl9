@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Link from 'next/link';
 
 // @ts-ignore
-export default function Post({ data }) {
+const Post = ({ data }) => {
   return (
     <div>
       <header>
@@ -47,7 +47,7 @@ export async function getStaticProps(context) {
   );
   const resData = await res.json();
   // Pass data to the page via props
-  return { props: { data: resData[0] } };
+  return { props: { data: resData[0] || null } };
 }
 
 // @ts-ignore
@@ -58,3 +58,4 @@ export async function getStaticPaths() {
   };
 }
 
+export default Post;

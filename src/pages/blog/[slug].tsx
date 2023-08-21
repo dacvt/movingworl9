@@ -1,47 +1,61 @@
-import type {
-  GetStaticPaths,
-  GetStaticProps,
-  InferGetStaticPropsType,
-} from 'next';
+import _ from 'lodash';
+import Link from 'next/link';
 
-import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
+// @ts-ignore
+const Post = ({ data }) => {
+  return (
+    <div>
+      <header>
+        <div className="container">
+          <div className="logo">
+            <img
+              src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+              alt="logo"
+            />
+          </div>
+          <div className="menu">
+            <Link href="/">Home</Link>
+          </div>
+        </div>
+      </header>
+      <article className="container">
+        <h1
+          dangerouslySetInnerHTML={{
+            __html: _.get(data, 'title.rendered', ''),
+          }}
+        />
+        <div dangerouslySetInnerHTML={{ __html: _.get(data, 'date', '') }} />
+        <section>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: _.get(data, 'content.rendered', ''),
+            }}
+          />
+        </section>
+      </article>
+    </div>
+  );
+}
 
-type IBlogUrl = {
-  slug: string;
-};
+// This gets called on every request
+// @ts-ignore
+export async function getStaticProps(context) {
+  const { slug } = context.params;
+  // Fetch data from external API
+  const res = await fetch(
+    `https://amazingdailynews.com/wp-json/wp/v2/posts?slug=${slug}`
+  );
+  const resData = await res.json();
+  // Pass data to the page via props
+  return { props: { data: resData[0] || null } };
+}
 
-export const getStaticPaths: GetStaticPaths<IBlogUrl> = async () => {
+// @ts-ignore
+export async function getStaticPaths() {
   return {
-    paths: [...Array(10)].map((_, index) => ({
-      params: { slug: `blog-${index}` },
-    })),
+    paths: [],
     fallback: false,
   };
-};
+}
 
-export const getStaticProps: GetStaticProps<IBlogUrl, IBlogUrl> = async ({
-  params,
-}) => {
-  return {
-    props: {
-      slug: params!.slug,
-    },
-  };
-};
-
-const Blog = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return (
-    <Main meta={<Meta title={props.slug} description="Lorem ipsum" />}>
-      <h1 className="capitalize">{props.slug}</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore eos
-        earum doloribus, quibusdam magni accusamus vitae! Nisi, sunt! Aliquam
-        iste expedita cupiditate a quidem culpa eligendi, aperiam saepe dolores
-        ipsum!
-      </p>
-    </Main>
-  );
-};
-
-export default Blog;
+export default Post;
