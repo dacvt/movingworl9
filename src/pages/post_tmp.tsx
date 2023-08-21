@@ -49,3 +49,4 @@ Post.getInitialProps = async ({ query }) => {
 };
 
 export default Post;
+export const runtime = 'edge';
