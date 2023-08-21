@@ -40,10 +40,10 @@ export default function Post({ data }) {
 // This gets called on every request
 // @ts-ignore
 export async function getStaticProps(context) {
-  const { id } = context.params;
+  const { slug } = context.params;
   // Fetch data from external API
   const res = await fetch(
-    `https://amazingdailynews.com/wp-json/wp/v2/posts?slug=${id}`
+    `https://amazingdailynews.com/wp-json/wp/v2/posts?slug=${slug}`
   );
   const resData = await res.json();
   // Pass data to the page via props
@@ -54,6 +54,7 @@ export async function getStaticProps(context) {
 export async function getStaticPaths() {
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: false,
   };
 }
+
