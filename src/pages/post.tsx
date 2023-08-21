@@ -39,13 +39,14 @@ const Post = ({ data }) => {
 
 // This gets called on every request
 // @ts-ignore
-export async function getServerSideProps ({ query }) {
+Post.getInitialProps = async ({ query }) => {
+  console.log('query', query);
   // Fetch data from external API
   const res = await fetch(
     `https://amazingdailynews.com/wp-json/wp/v2/posts?slug=${query.name}`
   );
   const resData = await res.json();
-  return { props: { data: resData[0] } };
+  return { data: resData[0]};
 };
 
 export default Post;
