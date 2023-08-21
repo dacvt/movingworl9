@@ -59,7 +59,7 @@ export default function PostPage({ data }) {
 }
 
 // This gets called on every request
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // Fetch data from external API
   const res = await fetch(
     `https://amazingdailynews.com/wp-json/wp/v2/posts?per_page=20`
