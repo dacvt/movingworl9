@@ -35,7 +35,7 @@ const Post = ({ data }) => {
       </article>
     </div>
   );
-}
+};
 
 // This gets called on every request
 // @ts-ignore
