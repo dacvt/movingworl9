@@ -62,7 +62,7 @@ export default function PostPage({ data }) {
 export async function getStaticProps() {
   // Fetch data from external API
   const res = await fetch(
-    `https://amazingdailynews.com/wp-json/wp/v2/posts?per_page=20`
+    `https://movingworl.com/wp-json/wp/v2/posts?per_page=20`
   );
   const data = await res.json();
   // Pass data to the page via props
